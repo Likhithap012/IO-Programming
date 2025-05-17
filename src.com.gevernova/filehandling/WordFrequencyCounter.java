@@ -15,9 +15,9 @@ public class WordFrequencyCounter {
         Map<String, Integer> wordCount = new HashMap<>();
 
         // 1. Read file and count words
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 // Split line into words based on non-word characters (punctuation, spaces)
                 String[] words = line.toLowerCase().split("\\W+");
                 for (String word : words) {

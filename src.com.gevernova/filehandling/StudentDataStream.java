@@ -7,15 +7,15 @@ public class StudentDataStream {
         String fileName = "students.dat";
 
         // Write data to binary file
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(fileName))) {
+        try (DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream(fileName))) {
             // Sample student data
-            dos.writeInt(101);                 // Roll Number
-            dos.writeUTF("Likhitha");          // Name
-            dos.writeDouble(9.2);              // GPA
+            dataOutputStream.writeInt(101);                 // Roll Number
+            dataOutputStream.writeUTF("Likhitha");          // Name
+            dataOutputStream.writeDouble(9.2);              // GPA
 
-            dos.writeInt(102);
-            dos.writeUTF("Vyshnavi");
-            dos.writeDouble(8.7);
+            dataOutputStream.writeInt(102);
+            dataOutputStream.writeUTF("Vyshnavi");
+            dataOutputStream.writeDouble(8.7);
 
             System.out.println("Student data written successfully.");
         } catch (IOException e) {
@@ -23,11 +23,11 @@ public class StudentDataStream {
         }
 
         // Read data from binary file
-        try (DataInputStream dis = new DataInputStream(new FileInputStream(fileName))) {
-            while (dis.available() > 0) { // while there's still data to read
-                int roll = dis.readInt();
-                String name = dis.readUTF();
-                double gpa = dis.readDouble();
+        try (DataInputStream dataInputStream = new DataInputStream(new FileInputStream(fileName))) {
+            while (dataInputStream.available() > 0) { // while there's still data to read
+                int roll = dataInputStream.readInt();
+                String name = dataInputStream.readUTF();
+                double gpa = dataInputStream.readDouble();
 
                 System.out.println("Roll No: " + roll + ", Name: " + name + ", GPA: " + gpa);
             }

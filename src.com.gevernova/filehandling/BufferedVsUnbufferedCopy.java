@@ -14,10 +14,10 @@ public class BufferedVsUnbufferedCopy {
         File file = new File(sourceFile);
         if (!file.exists()) {
             System.out.println("Creating large file...");
-            try (FileOutputStream fos = new FileOutputStream(file)) {
+            try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
                 byte[] data = "SampleText1234567890\n".getBytes();
                 for (int i = 0; i < (100 * 1024 * 1024) / data.length; i++) {
-                    fos.write(data);
+                    fileOutputStream.write(data);
                 }
                 System.out.println("Large file created: " + sourceFile);
             } catch (IOException e) {
@@ -28,15 +28,15 @@ public class BufferedVsUnbufferedCopy {
 
         // Step 2: Unbuffered copy
         try (
-                FileInputStream fis = new FileInputStream(sourceFile);
-                FileOutputStream fos = new FileOutputStream(destUnbuffered)
+                FileInputStream fileInputStream = new FileInputStream(sourceFile);
+                FileOutputStream fileOutputStream = new FileOutputStream(destUnbuffered)
         ) {
             byte[] buffer = new byte[BUFFER_SIZE];
             int bytesRead;
             long start = System.nanoTime();
 
-            while ((bytesRead = fis.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
+            while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead);
             }
 
             long end = System.nanoTime();
@@ -48,15 +48,15 @@ public class BufferedVsUnbufferedCopy {
 
         // Step 3: Buffered copy
         try (
-                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(sourceFile));
-                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(destBuffered))
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(sourceFile));
+                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(destBuffered))
         ) {
             byte[] buffer = new byte[BUFFER_SIZE];
             int bytesRead;
             long start = System.nanoTime();
 
-            while ((bytesRead = bis.read(buffer)) != -1) {
-                bos.write(buffer, 0, bytesRead);
+            while ((bytesRead = bufferedInputStream.read(buffer)) != -1) {
+                bufferedOutputStream.write(buffer, 0, bytesRead);
             }
 
             long end = System.nanoTime();

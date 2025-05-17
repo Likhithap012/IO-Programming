@@ -15,8 +15,6 @@ public class ReadAndWriteaTextFile {
                 file.createNewFile();
                 FileOutputStream fileOutputStream=new FileOutputStream(file);
                 String sampleText="This is text.";
-//                sampleText.getBytes() converts that String into an array of bytes (byte[]).
-//                fileOutputStream.write(byte[]) writes those bytes to the file.
                 fileOutputStream.write(sampleText.getBytes());
             }
             FileInputStream fileInputStream=new FileInputStream(sourceFile);

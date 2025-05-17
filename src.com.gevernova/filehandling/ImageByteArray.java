@@ -34,32 +34,32 @@ public class ImageByteArray {
 
         try {
             // 1. Read the image file into a byte array
-            FileInputStream fis = new FileInputStream(originalImagePath);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            FileInputStream fileInputStream = new FileInputStream(originalImagePath);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
             byte[] buffer = new byte[4096];
             int bytesRead;
 
-            while ((bytesRead = fis.read(buffer)) != -1) {
-                baos.write(buffer, 0, bytesRead);
+            while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                byteArrayOutputStream.write(buffer, 0, bytesRead);
             }
 
-            fis.close();
+            fileInputStream.close();
 
             // Convert ByteArrayOutputStream to byte array
-            byte[] imageBytes = baos.toByteArray();
+            byte[] imageBytes = byteArrayOutputStream.toByteArray();
 
             // 2. Read the byte array using ByteArrayInputStream
-            ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
-            FileOutputStream fos = new FileOutputStream(copiedImagePath);
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(imageBytes);
+            FileOutputStream fileOutputStream = new FileOutputStream(copiedImagePath);
 
             // 3. Write the byte array to a new image file
-            while ((bytesRead = bais.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
+            while ((bytesRead = byteArrayInputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead);
             }
 
-            fos.close();
-            bais.close();
+            fileOutputStream.close();
+            byteArrayInputStream.close();
 
             System.out.println("Image copied successfully.");
 
