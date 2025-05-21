@@ -2,21 +2,20 @@ package csv;
 import java.io.*;
 import java.util.*;
 
-public class Csv{
+public class Csv {
 
     // 1: Read a CSV and print data
     public static void readAndPrintCSV(String filePath) {
         System.out.println("Reading and printing CSV data:");
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String line;
             // Read header
-            String header = br.readLine();
+            String header = bufferedReader.readLine();
             System.out.println("Header: " + header);
             // Read and print each record
-            while ((line = br.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 String[] parts = line.split(",");
-                System.out.printf("ID: %s, Name: %s, Age: %s, Marks: %s%n",
-                        parts[0], parts[1], parts[2], parts[3]);
+                System.out.println("ID: " + parts[0] + ", Name: " + parts[1] + ", Age: " + parts[2] + ", Marks: " + parts[3]);
             }
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
@@ -34,14 +33,14 @@ public class Csv{
                 "105,Chris Evans,Marketing,50000"
         };
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath))) {
             // Write header
-            bw.write("ID,Name,Department,Salary");
-            bw.newLine();
+            bufferedWriter.write("ID,Name,Department,Salary");
+            bufferedWriter.newLine();
             // Write records
             for (String emp : employees) {
-                bw.write(emp);
-                bw.newLine();
+                bufferedWriter.write(emp);
+                bufferedWriter.newLine();
             }
             System.out.println("Employees written successfully.");
         } catch (IOException e) {
@@ -93,7 +92,7 @@ public class Csv{
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts[1].equalsIgnoreCase(name)) {
-                    System.out.printf("Department: %s, Salary: %s%n", parts[2], parts[3]);
+                    System.out.println("Department: " + parts[2] + ", Salary: " + parts[3]);
                     found = true;
                     break;
                 }
@@ -122,7 +121,7 @@ public class Csv{
                 if (parts[2].equalsIgnoreCase("IT")) {
                     double salary = Double.parseDouble(parts[3]);
                     salary *= 1.1; // increase by 10%
-                    parts[3] = String.format("%.2f", salary);
+                    parts[3] = String.format("%.2f", salary);  // Formatting salary as string with 2 decimals
                 }
                 bw.write(String.join(",", parts));
                 bw.newLine();
